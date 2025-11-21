@@ -21,34 +21,12 @@ export default function Home() {
         const portfolioData = await getPortfolioData();
         setData(portfolioData);
       } catch (error) {
-        console.error('Failed to load portfolio data:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadData();
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen">
-      <Navbar />
-      <Hero
-        name={data.profile.name}
-        title={data.profile.title}
-        bio={data.profile.bio}
-        location={data.profile.location}
-        email={data.profile.email}
-        github={data.profile.github}
-        linkedin={data.profile.linkedin}
-      />
+        bio = { data.profile.bio }
+        location = { data.profile.location }
+        email = { data.profile.email }
+        github = { data.profile.github }
+        linkedin = { data.profile.linkedin }
+          />
       <Skills skills={data.skills} />
       <Education education={data.education} />
       <Experience experiences={data.experiences} />
@@ -61,6 +39,6 @@ export default function Home() {
       <footer className="py-8 text-center text-muted-foreground border-t border-primary/20">
         <p>© 2025 {data.profile.name}. All rights reserved.</p>
       </footer>
-    </div>
+    </div >
   );
 }
