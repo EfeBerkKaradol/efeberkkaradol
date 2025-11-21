@@ -1,4 +1,5 @@
 import { PortfolioData } from './types';
+import { supabase } from './supabase';
 
 export const defaultPortfolioData: PortfolioData = {
   profile: {
@@ -170,21 +171,53 @@ export const defaultPortfolioData: PortfolioData = {
   ]
 };
 
-export const getPortfolioData = (): PortfolioData => {
-  if (typeof window === 'undefined') return defaultPortfolioData;
-  
-  const stored = localStorage.getItem('portfolioData');
-  if (stored) {
-    try {
-      return JSON.parse(stored);
-    } catch (e) {
-      return defaultPortfolioData;
-    }
-  }
-  return defaultPortfolioData;
-};
+/**
+ * Fetch portfolio data from Supabase
+ * Falls back to defaultPortfolioData if not found or on error
+ */
+export async function getPortfolioData(): Promise<PortfolioData> {
+  try {
+    const { data, error } = await supabase
+      .from('portfolio_data')
+      .select('data')
+      .eq('user_id', 'default')
+      .single();
 
-export const savePortfolioData = (data: PortfolioData): void => {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem('portfolioData', JSON.stringify(data));
-};
+    if (error) {
+      // If no data exists yet, return default
+      if (error.code === 'PGRST116') {
+        return defaultPortfolioData;
+      }
+      throw error;
+    }
+
+    return data.data as PortfolioData;
+  } catch (error) {
+    console.error('Error fetching portfolio data:', error);
+    return defaultPortfolioData;
+  }
+}
+
+/**
+ * Save portfolio data to Supabase
+ * Returns true on success, false on error
+ */
+export async function savePortfolioData(portfolioData: PortfolioData): Promise<boolean> {
+  try {
+    const { error } = await supabase
+      .from('portfolio_data')
+      .upsert({
+        user_id: 'default',
+        data: portfolioData,
+        updated_at: new Date().toISOString()
+      }, {
+        onConflict: 'user_id'
+      });
+
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error('Error saving portfolio data:', error);
+    return false;
+  }
+}

@@ -18,18 +18,37 @@ export function AdminDashboard() {
   const router = useRouter();
   const [data, setData] = useState<PortfolioData>(defaultPortfolioData);
   const [isSaving, setIsSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
-    setData(getPortfolioData());
+    async function loadData() {
+      const portfolioData = await getPortfolioData();
+      setData(portfolioData);
+    }
+    loadData();
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true);
-    savePortfolioData(data);
-    setTimeout(() => {
+    setSaveStatus('idle');
+
+    try {
+      const success = await savePortfolioData(data);
+      if (success) {
+        setSaveStatus('success');
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
+      } else {
+        setSaveStatus('error');
+      }
+    } catch (error) {
+      console.error('Save error:', error);
+      setSaveStatus('error');
+    } finally {
       setIsSaving(false);
-      router.push("/");
-    }, 500);
+      setTimeout(() => setSaveStatus('idle'), 3000);
+    }
   };
 
   return (
@@ -48,10 +67,13 @@ export function AdminDashboard() {
           <Button
             onClick={handleSave}
             disabled={isSaving}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            className={`glass-card ${saveStatus === 'success' ? 'bg-green-600 hover:bg-green-700' :
+                saveStatus === 'error' ? 'bg-red-600 hover:bg-red-700' :
+                  'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'
+              }`}
           >
             <Save className="w-4 h-4 mr-2" />
-            {isSaving ? "Saving..." : "Save Changes"}
+            {isSaving ? 'Saving...' : saveStatus === 'success' ? 'Saved!' : saveStatus === 'error' ? 'Error!' : 'Save Changes'}
           </Button>
         </div>
 

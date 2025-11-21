@@ -13,12 +13,23 @@ import { PortfolioData } from "@/lib/types";
 
 export default function Home() {
   const [data, setData] = useState<PortfolioData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setData(getPortfolioData());
+    async function loadData() {
+      try {
+        const portfolioData = await getPortfolioData();
+        setData(portfolioData);
+      } catch (error) {
+        console.error('Failed to load portfolio data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
   }, []);
 
-  if (!data) {
+  if (loading || !data) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>

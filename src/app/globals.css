@@ -115,72 +115,82 @@
 }
 
 @layer base {
+
+  /* Prevent horizontal scroll on mobile */
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
-  
+
   .neon-text {
     text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 30px var(--color-primary);
   }
-  
+
   .neon-border {
     box-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), inset 0 0 10px var(--color-primary);
   }
-  
+
   .glass-card {
     background: linear-gradient(135deg, rgba(100, 60, 200, 0.1) 0%, rgba(80, 120, 255, 0.1) 100%);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(150, 100, 255, 0.2);
   }
-  
+
   .gradient-text {
     background: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .orbitron {
     font-family: 'Orbitron', sans-serif;
   }
-  
+
   /* Modern Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: oklch(0.12 0.03 270 / 0.3);
     border-radius: 10px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, oklch(0.65 0.25 280), oklch(0.55 0.25 250));
     border-radius: 10px;
     border: 2px solid oklch(0.12 0.03 270 / 0.3);
     transition: all 0.3s ease;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, oklch(0.7 0.25 280), oklch(0.6 0.25 250));
     box-shadow: 0 0 10px oklch(0.65 0.25 280 / 0.5);
   }
-  
+
   ::-webkit-scrollbar-thumb:active {
     background: linear-gradient(135deg, oklch(0.75 0.25 280), oklch(0.65 0.25 250));
   }
-  
+
   /* Firefox Scrollbar */
   * {
     scrollbar-width: thin;
     scrollbar-color: oklch(0.65 0.25 280) oklch(0.12 0.03 270 / 0.3);
   }
-  
+
   /* Content Protection - Prevent easy text manipulation via inspect */
   body {
     -webkit-user-select: none;
@@ -188,15 +198,17 @@
     -ms-user-select: none;
     user-select: none;
   }
-  
+
   /* Allow selection for input fields and editable content */
-  input, textarea, [contenteditable="true"] {
+  input,
+  textarea,
+  [contenteditable="true"] {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
   }
-  
+
   /* Disable right-click context menu */
   body {
     -webkit-touch-callout: none;
