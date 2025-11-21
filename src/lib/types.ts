@@ -3,6 +3,9 @@ export interface Skill {
   school: string;
   location: string;
   startDate: string;
+  field: string;
+  location: string;
+  startDate: string;
   endDate: string;
   current: boolean;
   gpa?: string;
