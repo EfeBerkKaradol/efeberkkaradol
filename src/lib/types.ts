@@ -1,13 +1,32 @@
 export interface Skill {
   id: string;
-  school: string;
-  location: string;
+  name: string;
+  level: number; // 1-100
+  category: string;
+  icon?: string;
+}
+
+export interface Experience {
+  id: string;
+  position: string;
+  company: string;
+  location?: string;
   startDate: string;
+  endDate?: string;
+  current?: boolean;
+  description: string;
+  technologies?: string[];
+}
+
+export interface Education {
+  id: string;
+  degree: string;
   field: string;
-  location: string;
+  school: string;
+  location?: string;
   startDate: string;
-  endDate: string;
-  current: boolean;
+  endDate?: string;
+  current?: boolean;
   gpa?: string;
   description?: string;
 }
@@ -17,10 +36,8 @@ export interface Project {
   title: string;
   description: string;
   image?: string;
-  technologies: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
+  technologies?: string[];
+  link?: string;
 }
 
 export interface PortfolioData {
