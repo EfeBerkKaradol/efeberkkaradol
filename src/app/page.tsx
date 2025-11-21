@@ -48,7 +48,7 @@ export default function Home() {
         location={data.profile.location}
       />
       <footer className="py-8 text-center text-muted-foreground border-t border-primary/20">
-        <p>© 2024 {data.profile.name}. All rights reserved.</p>
+        <p>© 2025 {data.profile.name}. All rights reserved.</p>
       </footer>
     </div>
   );

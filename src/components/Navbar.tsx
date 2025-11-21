@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,9 +32,8 @@ export function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass-card shadow-lg' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-card shadow-lg' : 'bg-transparent'
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -44,7 +41,7 @@ export function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-xl font-bold orbitron gradient-text"
           >
-            Portfolio
+            Efe Berk Karadöl
           </button>
 
           {/* Desktop Navigation */}
@@ -58,14 +55,6 @@ export function Navbar() {
                 {item.label}
               </button>
             ))}
-            <Button
-              variant="outline"
-              size="sm"
-              className="glass-card"
-              asChild
-            >
-              <Link href="/admin">Admin</Link>
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -95,14 +84,6 @@ export function Navbar() {
                 {item.label}
               </button>
             ))}
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full glass-card"
-              asChild
-            >
-              <Link href="/admin">Admin Panel</Link>
-            </Button>
           </div>
         </motion.div>
       )}

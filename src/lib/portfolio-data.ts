@@ -9,7 +9,7 @@ export const defaultPortfolioData: PortfolioData = {
     phone: "+90 553 297 67 87",
     location: "Yenimahalle, Ankara, Turkey",
     github: "https://github.com/efeberkkaradol",
-    linkedin: "https://linkedin.com/in/efe-berkkaradol-748543210",
+    linkedin: "https://www.linkedin.com/in/efe-berk-karadol-748543210/",
   },
   skills: [
     { id: '1', name: 'Java', level: 90, category: 'Backend', icon: '☕' },

@@ -40,7 +40,7 @@ export function AdminDashboard() {
             <Button variant="outline" asChild className="glass-card">
               <Link href="/">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Portfolio
+                Back to Home
               </Link>
             </Button>
             <h1 className="text-3xl font-bold orbitron gradient-text">Admin Dashboard</h1>
