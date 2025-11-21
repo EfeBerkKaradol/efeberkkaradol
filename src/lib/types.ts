@@ -1,27 +1,5 @@
 export interface Skill {
   id: string;
-  name: string;
-  level: number; // 1-100
-  category: string;
-  icon?: string;
-}
-
-export interface Experience {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  current: boolean;
-  description: string;
-  technologies: string[];
-}
-
-export interface Education {
-  id: string;
-  degree: string;
-  field: string;
   school: string;
   location: string;
   startDate: string;
